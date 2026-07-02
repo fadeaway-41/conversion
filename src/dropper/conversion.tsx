@@ -1,8 +1,17 @@
+import { useState } from "react";
+import { FFmpeg } from "@ffmpeg/ffmpeg";
+import { fetchFile } from "@ffmpeg/util";
+
 export default function Dropper()
 {
-    function handleFileChange(e: React.FormEvent<HTMLInputElement>)
+    const [file,setFile] = useState<File | undefined>();
+    function handleFileChange(e: React.ChangeEvent<HTMLInputElement>)
     {
-
+        const target = e.target as HTMLInputElement & {
+            files : FileList;
+        }
+        setFile(target.files[0]);
+        console.log(target.files)
     }
     return (
         <div className="vh-100 main-container w-100">
