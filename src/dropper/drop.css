@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(135deg, #2193b0, #6dd5ed);
+    background-color: #171717 !important; 
 }
 .main-container {
     width: 33%;
@@ -9,16 +9,16 @@ body {
 }
 .box {
     width: 40%;
-    background-color: white;
+    background-color: #2e2e2e;
     border-radius: 25px;
     height: 33%;
 }
 .upload-box 
 {
     border-radius: 6px;
-    border: 2px dashed rgb(42, 86, 153);
-    background: rgba(22, 102, 155, 0.11);
+    border: 2px dashed rgb(122, 122, 122);
+    background: rgba(#2e2e2e);
 }
-.inside-box {
-    color: rgba(1, 5, 255, 0.6)
+.selectinput {
+    width: 10%;
 }
