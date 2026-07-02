@@ -1,5 +1,5 @@
-import Dropper from "./dropper/conversion.jsx";
-
+import Dropper from "./dropper/conversion.tsx";
+import "./dropper/drop.css"
 export default function App()
 {
     return (
