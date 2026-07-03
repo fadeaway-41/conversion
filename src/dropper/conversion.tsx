@@ -30,12 +30,14 @@ export default  function Dropper()
 
 
                 await ffmpeg.current.writeFile(input, await fetchFile(file));
+                // put switch in different file
                 switch(newtype)
                 {
                     case "avi":
                     await ffmpeg.current.exec([ "-i", input, "-c:v", "mpeg4", "-c:a", "mp3", output, ]);
-                    break;
+                    break; 
                 }
+                
                 // await ffmpeg.current.exec(["-i" , file.name , "-c" , "copy", `${filename}.${newtype}`])
                 // ffmpeg -i "YOUR_VIDEO_URL" -c copy output_video.mp4
                 const data = await ffmpeg.current.readFile(output);
