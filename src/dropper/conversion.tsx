@@ -1,6 +1,6 @@
 import { useEffect, useState , useRef } from "react";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
-import { fetchFile } from "@ffmpeg/util";
+import { CodecConversion } from "../utils/fileUtils.tsx";
 
 export default  function Dropper()
 {
@@ -13,7 +13,6 @@ export default  function Dropper()
         const file = e.target.files?.[0];
         if (file) {
             setFile(file);
-            console.log(file.name);
         }
     }
     useEffect(() => {
@@ -25,31 +24,11 @@ export default  function Dropper()
                 const filename = file.name.split('.')[0];
                 const input = file.name;
                 const output = `${filename}.${newtype}`; 
+
                 console.log(filename);
                 console.log(output)
 
-
-                await ffmpeg.current.writeFile(input, await fetchFile(file));
-                // put switch in different file
-                switch(newtype)
-                {
-                    case "avi":
-                    await ffmpeg.current.exec([ "-i", input, "-c:v", "mpeg4", "-c:a", "mp3", output, ]);
-                    break; 
-                }
-                
-                // await ffmpeg.current.exec(["-i" , file.name , "-c" , "copy", `${filename}.${newtype}`])
-                // ffmpeg -i "YOUR_VIDEO_URL" -c copy output_video.mp4
-                const data = await ffmpeg.current.readFile(output);
-                const blob = new Blob([new Uint8Array(data as any)], {type: `video/${newtype}`,});
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = output;
-                // `${filename}.${newtype}`
-                a.click();
-
-                URL.revokeObjectURL(url);
+                await CodecConversion(ffmpeg.current, input, file, newtype,output);
             }
         };
         load();
@@ -80,7 +59,6 @@ export default  function Dropper()
                         </div>
                     </div>
                 </div>
-
         </div>
     )
 }
