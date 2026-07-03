@@ -6,8 +6,8 @@ export default  function Dropper()
 {
     const ffmpeg = useRef(new FFmpeg());
     const [file,setFile] = useState<File | undefined>();
-    const[oldtype,setOldtype] = useState<string>("mp4");
     const [newtype , setNewtype] = useState<string>("avi");
+    console.log(newtype)
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>)
     {
         const file = e.target.files?.[0];
@@ -25,8 +25,7 @@ export default  function Dropper()
                 const input = file.name;
                 const output = `${filename}.${newtype}`; 
 
-                console.log(filename);
-                console.log(output)
+
 
                 await CodecConversion(ffmpeg.current, input, file, newtype,output);
             }
@@ -36,11 +35,14 @@ export default  function Dropper()
     return (
         <div className="vh-100 main-container w-100">
             <div className="nav h-25 d-flex flex-column">
-                <select onChange={(e) => setNewtype(e.target.value)} className="selectinput">
+                <select onChange={ 
+                    (e) => {
+                        setNewtype(e.target.value);
+                        console.log(e.target.value);
+                        }}
+                     className="selectinput">
                     <option>avi</option>
-                </select>
-                <select value={newtype} onChange={(e) => setOldtype(e.target.value)} className="selectinput">
-                    <option>mp4</option>
+                    <option>mov</option>
                 </select>
             </div>
                 <div className="center-box d-flex justify-content-center">
