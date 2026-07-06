@@ -1,0 +1,45 @@
+.top-nav {
+    width: 100%;
+    padding: 12px 24px;
+    border-bottom: 1px solid rgb(50, 50, 50);
+    background-color: #171717;
+}
+
+.nav-tabs-custom {
+    gap: 8px;
+}
+
+.nav-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: none;
+    border: none;
+    border-radius: 6px;
+    color: #999999;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-tab:hover {
+    background-color: #2a2a2a;
+    color: #d0d0d0;
+}
+
+.nav-tab.active {
+    background-color: #2e2e2e;
+    color: #ffffff;
+}
+
+.nav-tab.active .tab-icon {
+    color: #c0392b;
+}
+
+.tab-icon {
+    width: 18px;
+    height: 18px;
+    color: currentColor;
+}

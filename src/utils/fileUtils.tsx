@@ -9,9 +9,7 @@ export async function CodecConversion(
   output: string
 ) 
 {
-    console.log(input);
-
-
+    // console.log(input);
     await ffmpeg.writeFile(input, await fetchFile(file));
     await ffmpeg.exec(
         BuildFFmpegCommand(input, newtype, output)
