@@ -7,7 +7,6 @@ export default  function Dropper()
     const ffmpeg = useRef(new FFmpeg());
     const [file,setFile] = useState<File | undefined>();
     const [newtype , setNewtype] = useState<string>("avi");
-    console.log(newtype)
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>)
     {
         const file = e.target.files?.[0];
@@ -43,6 +42,9 @@ export default  function Dropper()
                      className="selectinput">
                     <option>avi</option>
                     <option>mov</option>
+                    <option>mp4</option>
+                    <option>mkv</option>
+                    <option>webm</option>
                 </select>
             </div>
                 <div className="center-box d-flex justify-content-center">
