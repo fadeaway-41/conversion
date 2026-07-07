@@ -44,7 +44,7 @@ export default  function Dropper()
                     setNewtype(e.target.value);
                     console.log(e.target.value);
                 }}
-                className="selectinput"
+                className="selectinput form-select w-25 bg-dark text-light border-secondary"
             >
                 <option value="avi">AVI</option>
                 <option value="mov">MOV</option>
@@ -58,9 +58,9 @@ export default  function Dropper()
                 <div className="Top d-flex justify-content-start">
                     <h4 className="text-danger">Upload file</h4>
                 </div>
-                    {/*  */}
+
                     <UploadBox handleFileChange={handleFileChange} />
-                    {/*  */}
+
             </div> 
         </div>
     </div>
