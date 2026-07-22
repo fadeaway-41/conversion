@@ -10,4 +10,6 @@ export const CODECS: Record<string, string[]> = {
   webm: ["-c:v", "libvpx-vp9", "-c:a", "libopus"],
 
   mp3: ["-c:a", "libmp3lame", "-q:a", "2"],
+
+  url: ["-c:v" , "libx264" , "-preset slow" , "-crf 22"]
 };
