@@ -2,7 +2,7 @@ import { useEffect, useState , useRef } from "react";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { CodecConversion } from "../utils/fileUtils.tsx";
 import { UrlConversion } from "../utils/UrlConversion.tsx";
-import { CODECS } from "../utils/codes.tsx";
+import { CODEC, CODECS } from "../utils/codes.tsx";
 import Nav from "../elements/nav/nav.jsx"
 import UploadBox from "../elements/uploadbox/uploadbox.jsx";
 export default  function Dropper()
@@ -39,11 +39,11 @@ export default  function Dropper()
     const loadurl = async () =>
     {
         await ffmpeg.current.load();
-
         await UrlConversion(ffmpeg.current,urlink,"video.mp4");
-
         // ffmpeg -i "YOUR URL TO DOWNLOAD VIDEO FROM" -c:v libx264 -preset slow -crf 22 "saveas.mp4"
     }
+    const formats = Object.keys(CODECS) as CODEC[];
+    const [isOpen , setIsOpen] = useState(false);
     return (
     <div className="vh-100 main-container w-100">
         <Nav />
@@ -54,7 +54,19 @@ export default  function Dropper()
             </div>
             <div className="inputs d-flex  align-items-center">
             <div className="select-wrapper">
-                <select
+                <button className="select-button" onClick={() => setIsOpen(!isOpen)}>{newtype.toUpperCase()}</button>
+                {isOpen && (
+                    <div className="select-menu">
+                        {formats.map(option =>
+                            (
+                                <div key={option} className="select-option" onClick={(e) => { setNewtype(option); setIsOpen(false); }}>
+                                    {option.toUpperCase()}
+                                </div>
+                            )
+                        )}
+                    </div>
+                )}
+                {/* <select
                         onChange={(e) => {
                             setNewtype(e.target.value);
                         }}
@@ -65,7 +77,7 @@ export default  function Dropper()
                         <option value="mp4">MP4</option>
                         <option value="mkv">MKV</option>
                         <option value="webm">WEBM</option>
-                    </select>
+                    </select> */}
                 </div>
     {/* 
                 <input
