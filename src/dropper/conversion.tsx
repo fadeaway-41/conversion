@@ -3,6 +3,7 @@ import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { CodecConversion } from "../utils/fileUtils.tsx";
 import { UrlConversion } from "../utils/UrlConversion.tsx";
 import { CODEC, CODECS } from "../utils/codes.tsx";
+import axios from 'axios';
 import Nav from "../elements/nav/nav.jsx"
 import UploadBox from "../elements/uploadbox/uploadbox.jsx";
 export default  function Dropper()
@@ -54,7 +55,7 @@ export default  function Dropper()
             </div>
             <div className="inputs d-flex  align-items-center">
                 <div className="select-wrapper">
-                    <button className="select-button" onClick={() => setIsOpen(!isOpen)}>{newtype.toUpperCase()}
+                    <button className="select-button"  onClick={() => setIsOpen(!isOpen)}>{newtype.toUpperCase()}
                         <svg className="select-arrow" width="15" height="15" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2.5 4.5L6 8L9.5 4.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
@@ -78,8 +79,8 @@ export default  function Dropper()
                             onChange={(e) => setNewtype(e.target.value)}
                         /> */}
 
-                <button className="w-25 btn btn-light mt-3 click-btn" onClick={handleUrlChange}>
-                    Click
+                <button className="p-1 mt-3 click-btn" onClick={handleUrlChange}>
+                    Start converting
                 </button>
             </div>
         </div>

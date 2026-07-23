@@ -1,17 +1,17 @@
 export const CODECS: Record<string, string[]> = {
-  mp4: ["-c:v", "libx264", "-c:a", "aac"],
+  mp4: ["-c:v", "libx264", "-preset", "ultrafast", "-crf", "23", "-c:a", "aac"],
 
-  avi: ["-c:v", "mpeg4", "-c:a", "mp3"],
+  avi: ["-c:v", "mpeg4", "-q:v", "5", "-c:a", "mp3"],
 
-  mov: ["-c:v", "libx264", "-c:a", "aac"],
+  mov: ["-c:v", "libx264", "-preset", "ultrafast", "-crf", "23", "-c:a", "aac"],
 
-  mkv: ["-c:v", "libx264", "-c:a", "aac"],
+  mkv: ["-c:v", "libx264", "-preset", "ultrafast", "-crf", "23", "-c:a", "aac"],
 
-  webm: ["-c:v", "libvpx-vp9", "-c:a", "libopus"],
+  webm: ["-c:v", "libvpx", "-deadline", "realtime", "-cpu-used", "8", "-c:a", "libopus"],
 
-  mp3: ["-c:a", "libmp3lame", "-q:a", "2"],
-
-  url: ["-c:v", "libx264", "-preset slow", "-crf 22"]
+  mp3: ["-c:a", "libmp3lame", "-q:a", "4"],
+  
+  url: ["-c:v", "libx264", "-preset", "ultrafast", "-crf", "23"]
 } as const;
 
-export type CODEC = keyof typeof CODECS
+export type CODEC = keyof typeof CODECS;

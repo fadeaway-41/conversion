@@ -206,5 +206,11 @@ option {
 }
 .click-btn {
     margin-left: auto;
+    margin-bottom: auto;
+    background-color: #fafbfc;
+    border: 1px solid #00000023;
+    border-radius: 6px;
+    color: black;
+    width: 15%;
 }
 /* select */
