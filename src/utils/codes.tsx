@@ -11,5 +11,7 @@ export const CODECS: Record<string, string[]> = {
 
   mp3: ["-c:a", "libmp3lame", "-q:a", "2"],
 
-  url: ["-c:v" , "libx264" , "-preset slow" , "-crf 22"]
-};
+  url: ["-c:v", "libx264", "-preset slow", "-crf 22"]
+} as const;
+
+export type CODEC = keyof typeof CODECS
