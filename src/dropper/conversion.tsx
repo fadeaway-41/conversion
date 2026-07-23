@@ -9,6 +9,7 @@ import UploadBox from "../elements/uploadbox/uploadbox.jsx";
 export default  function Dropper()
 {
     const ffmpeg = useRef(new FFmpeg());
+    const [progress,setProgress] = useState<string>("0");
     const [file,setFile] = useState<File | undefined>();
     const [newtype , setNewtype] = useState<string>("avi");
     const [urlink , setUrlink] = useState<string>("");
@@ -32,7 +33,7 @@ export default  function Dropper()
                 const input = file.name;
                 const output = `${filename}.${newtype}`; 
 
-                await CodecConversion(ffmpeg.current, input, file, newtype,output);
+                await CodecConversion(ffmpeg.current, input, file, newtype,output,setProgress);
             }
         };
         load();
@@ -84,6 +85,7 @@ export default  function Dropper()
                 </button>
             </div>
         </div>
+        <div className="text-black ">{progress}</div>
 
         
     </div>
