@@ -204,4 +204,7 @@ option {
 .select-option:hover {
     background: #374151;
 }
+.click-btn {
+    margin-left: auto;
+}
 /* select */

@@ -53,44 +53,32 @@ export default  function Dropper()
                 <UploadBox handleFileChange={handleFileChange} />
             </div>
             <div className="inputs d-flex  align-items-center">
-            <div className="select-wrapper">
-                <button className="select-button" onClick={() => setIsOpen(!isOpen)}>{newtype.toUpperCase()}
-                    <svg className="select-arrow" width="15" height="15" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2.5 4.5L6 8L9.5 4.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                </button>
-                {isOpen && (
-                    <div className="select-menu">
-                        {formats.map(option =>
-                            (
-                                <div key={option} className="select-option" onClick={(e) => { setNewtype(option); setIsOpen(false); }}>
-                                    {option.toUpperCase()}
-                                </div>
-                            )
-                        )}
-                    </div>
-                )}
-                {/* <select
-                        onChange={(e) => {
-                            setNewtype(e.target.value);
-                        }}
-                        className="custom-select d-flex text-white align-items-center"
-                        >
-                        <option value="avi">AVI</option>
-                        <option value="mov">MOV</option>
-                        <option value="mp4">MP4</option>
-                        <option value="mkv">MKV</option>
-                        <option value="webm">WEBM</option>
-                    </select> */}
+                <div className="select-wrapper">
+                    <button className="select-button" onClick={() => setIsOpen(!isOpen)}>{newtype.toUpperCase()}
+                        <svg className="select-arrow" width="15" height="15" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.5 4.5L6 8L9.5 4.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+                    {isOpen && (
+                        <div className="select-menu">
+                            {formats.map(option =>
+                                (
+                                    <div key={option} className="select-option" onClick={(e) => { setNewtype(option); setIsOpen(false); }}>
+                                        {option.toUpperCase()}
+                                    </div>
+                                )
+                            )}
+                        </div>
+                    )}
                 </div>
-    {/* 
-                <input
-                    type="text"
-                    className="w-25 form-control mt-3"
-                    onChange={(e) => setNewtype(e.target.value)}
-                /> */}
+                        {/* 
+                        <input
+                            type="text"
+                            className="w-25 form-control mt-3"
+                            onChange={(e) => setNewtype(e.target.value)}
+                        /> */}
 
-                <button className="w-25 btn btn-light mt-3" onClick={handleUrlChange}>
+                <button className="w-25 btn btn-light mt-3 click-btn" onClick={handleUrlChange}>
                     Click
                 </button>
             </div>
