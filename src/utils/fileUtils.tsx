@@ -2,24 +2,20 @@ import { fetchFile } from "@ffmpeg/util";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { BuildFFmpegCommand } from "../utils/BuildFFmpeg.tsx";
 import axios from 'axios';
-
+import { use, useState } from "react";
 export async function CodecConversion(
   ffmpeg: FFmpeg,
   input: string,
   file: File,
   newtype: string,
-  output: string
+  output: string,
+  setProgress: React.Dispatch<React.SetStateAction<string>>
 ) 
 {
     await ffmpeg.writeFile(input, await fetchFile(file));
-
-    // progress bar
-
     ffmpeg.on("progress", ({ progress }) => {
-    console.log(`${Math.round(progress * 100)}%`);
+    setProgress(`${Math.round(progress * 100)}%`);
     });
-
-    // executing downloading
     await ffmpeg.exec(
         BuildFFmpegCommand(input, newtype, output)
     );
