@@ -8,6 +8,16 @@ import Nav from "../elements/nav/nav.jsx"
 import UploadBox from "../elements/uploadbox/uploadbox.jsx";
 import ProgressBar from "../elements/progressbar/progressbar.tsx";
 
+
+//  add toasts for same file conversion 
+//  design a toast
+//  add a toast after on the handlefilechange function
+// 
+// 
+// 
+// 
+// 
+// 
 export default  function Dropper()
 {
     const ffmpeg = useRef(new FFmpeg());
