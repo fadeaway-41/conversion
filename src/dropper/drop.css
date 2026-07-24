@@ -113,7 +113,7 @@ body {
 /* select */
 .select-wrapper {
     position: relative;
-    width: 10%;
+    width: 20%;
 }
 
 .custom-select {
@@ -148,25 +148,13 @@ option {
     outline: none;
     border-color: #60a5fa;
 }
-
-.select-arrow {
-    position: absolute;
-    right: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #60a5fa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-}
 .custom-select {
     position: relative;
     width: 250px;
 }
 
 .select-button {
-    width: 100%;
+    width: 70%;
     height: 50px;
     display: flex;
     justify-content: space-between;
@@ -204,6 +192,7 @@ option {
 .select-option:hover {
     background: #374151;
 }
+/*  */
 .click-btn {
     margin-left: auto;
     margin-bottom: auto;
@@ -211,6 +200,10 @@ option {
     border: 1px solid #00000023;
     border-radius: 6px;
     color: black;
-    width: 15%;
+    width: 60%;
 }
-/* select */
+.Btn {
+    width: 20%;
+    height: 100%;
+}
+
