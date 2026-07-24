@@ -6,23 +6,32 @@ import { CODEC, CODECS } from "../utils/codes.tsx";
 import axios from 'axios';
 import Nav from "../elements/nav/nav.jsx"
 import UploadBox from "../elements/uploadbox/uploadbox.jsx";
+import ProgressBar from "../elements/progressbar/progressbar.tsx";
+
 export default  function Dropper()
 {
     const ffmpeg = useRef(new FFmpeg());
-    const [progress,setProgress] = useState<string>("0");
+    const [progress,setProgress] = useState<number>(0);
     const [file,setFile] = useState<File | undefined>();
     const [newtype , setNewtype] = useState<string>("avi");
-    const [urlink , setUrlink] = useState<string>("");
-    function handleFileChange(e: React.ChangeEvent<HTMLInputElement>)
+    const [click,setClick] = useState<number>(0)
+
+    const StartConvert = (e: React.MouseEvent<HTMLButtonElement>) =>
+    {
+        setClick(prev => prev + 1);
+    }
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => 
     {
         const file = e.target.files?.[0];
         if (file) {
             setFile(file);
         }
     }
-    function handleUrlChange(e: React.MouseEvent<HTMLButtonElement>) {
-        setUrlink(e.currentTarget.value);
-    }
+
+    // function handleUrlChange(e: React.MouseEvent<HTMLButtonElement>) {
+    //     setUrlink(e.currentTarget.value);
+    // }
+
     useEffect(() => {
         const load = async () => 
         {   
@@ -37,15 +46,18 @@ export default  function Dropper()
             }
         };
         load();
-    }, [file]);
-    const loadurl = async () =>
-    {
-        await ffmpeg.current.load();
-        await UrlConversion(ffmpeg.current,urlink,"video.mp4");
-        // ffmpeg -i "YOUR URL TO DOWNLOAD VIDEO FROM" -c:v libx264 -preset slow -crf 22 "saveas.mp4"
-    }
+    }, [click]);
+
+    // const loadurl = async () =>
+    // {
+    //     await ffmpeg.current.load();
+    //     await UrlConversion(ffmpeg.current,urlink,"video.mp4");
+    //     // ffmpeg -i "YOUR URL TO DOWNLOAD VIDEO FROM" -c:v libx264 -preset slow -crf 22 "saveas.mp4"
+    // }
+    
     const formats = Object.keys(CODECS) as CODEC[];
     const [isOpen , setIsOpen] = useState(false);
+
     return (
     <div className="vh-100 main-container w-100">
         <Nav />
@@ -63,7 +75,8 @@ export default  function Dropper()
                     </button>
                     {isOpen && (
                         <div className="select-menu">
-                            {formats.map(option =>
+                            {formats.filter(option => option !== "url")
+                            .map(option =>
                                 (
                                     <div key={option} className="select-option" onClick={(e) => { setNewtype(option); setIsOpen(false); }}>
                                         {option.toUpperCase()}
@@ -79,14 +92,14 @@ export default  function Dropper()
                             className="w-25 form-control mt-3"
                             onChange={(e) => setNewtype(e.target.value)}
                         /> */}
-
-                <button className="p-1 mt-3 click-btn" onClick={handleUrlChange}>
-                    Start converting
-                </button>
+                <ProgressBar progress={progress}/>
+                <div className="Btn d-flex justify-content-end align-items-center">
+                    <button className="p-1 mt-3 click-btn" onClick={StartConvert}>
+                        Start converting
+                    </button>
+                </div>
             </div>
         </div>
-        <div className="text-black ">{progress}</div>
-
         
     </div>
     )
