@@ -3,28 +3,25 @@ import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { CodecConversion } from "../utils/fileUtils.tsx";
 import { UrlConversion } from "../utils/UrlConversion.tsx";
 import { CODEC, CODECS } from "../utils/codes.tsx";
-import axios from 'axios';
-import Nav from "../elements/nav/nav.jsx"
-import UploadBox from "../elements/uploadbox/uploadbox.jsx";
+import {Notify} from "../elements/toasts/toasts.tsx"
+import Nav from "../elements/nav/nav.jsx";
+import UploadBox from "../elements/uploadbox/uploadbox.tsx";
 import ProgressBar from "../elements/progressbar/progressbar.tsx";
 
 
 //  add toasts for same file conversion 
 //  design a toast
 //  add a toast after on the handlefilechange function
-// 
-// 
-// 
-// 
-// 
-// 
-export default  function Dropper()
+
+export default function Dropper()
 {
     const ffmpeg = useRef(new FFmpeg());
     const [progress,setProgress] = useState<number>(0);
     const [file,setFile] = useState<File | undefined>();
     const [newtype , setNewtype] = useState<string>("avi");
-    const [click,setClick] = useState<number>(0)
+    const [click,setClick] = useState<number>(0);
+    const [showToast , setShowToast] = useState<boolean>(false);
+    const[toastVariant,setToastVariant] = useState<string>("")
 
     const StartConvert = (e: React.MouseEvent<HTMLButtonElement>) =>
     {
@@ -35,7 +32,15 @@ export default  function Dropper()
         const file = e.target.files?.[0];
         if (file) {
             setFile(file);
+            setShowToast(true);
+            setToastVariant("Success");
         }
+        if(!file) 
+        {
+            setShowToast(true);
+            setToastVariant('Danger');
+        }
+        console.log(toastVariant);
     }
 
     // function handleUrlChange(e: React.MouseEvent<HTMLButtonElement>) {
@@ -69,7 +74,8 @@ export default  function Dropper()
     const [isOpen , setIsOpen] = useState(false);
 
     return (
-    <div className="vh-100 main-container w-100">
+    <div className="vh-100 main-container w-100 d-flex flex-column">
+
         <Nav />
 
         <div className="center-box d-flex justify-content-center align-items-center flex-column mt-5">
@@ -110,7 +116,9 @@ export default  function Dropper()
                 </div>
             </div>
         </div>
-        
+        <div className="end-box d-flex justify-content-end align-items-end h-100 m-4">
+            <Notify appear={showToast} setAppear={setShowToast} variant={toastVariant}/>
+        </div>
     </div>
     )
 }
