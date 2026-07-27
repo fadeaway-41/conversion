@@ -1,9 +1,6 @@
 body {
     background-color: white !important; 
 }
-.main-container {
-    width: 33%;
-}
 .center-box {
     height: 55%;
 }
@@ -206,4 +203,9 @@ option {
     width: 20%;
     height: 100%;
 }
-
+/*  */
+.bottom-box
+{
+    height: 100%;
+    width: 100%;
+}
