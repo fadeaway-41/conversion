@@ -18,7 +18,6 @@ export default function UploadBox({ handleFileChange} : UploadBoxProps)
                 .filter(item => item !== "url")
                 .map(item => `.${item}`)
                 .join(",")}
-                // accept="video.*"
                 onChange={handleFileChange}
             />
 
