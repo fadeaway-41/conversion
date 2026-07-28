@@ -22,6 +22,8 @@ export default function Dropper()
     const [click,setClick] = useState<number>(0);
     const [showToast , setShowToast] = useState<boolean>(false);
     const[toastVariant,setToastVariant] = useState<string>("")
+    const [toastMessage,setToastMessage] = useState<string>("");
+    // const debug_missing_file = true;
 
     const StartConvert = (e: React.MouseEvent<HTMLButtonElement>) =>
     {
@@ -30,15 +32,23 @@ export default function Dropper()
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => 
     {
         const file = e.target.files?.[0];
+
+        // if(debug_missing_file)
+        // {
+        //     file = undefined;
+        // }
+        
         if (file) {
             setFile(file);
             setShowToast(true);
-            setToastVariant("Success");
+            setToastVariant('Success');
+            setToastMessage('File upload/Your file has been successfully uploaded');
         }
         if(!file) 
         {
             setShowToast(true);
             setToastVariant('Danger');
+            setToastMessage('Error/your file upload has failed')
         }
         console.log(toastVariant);
     }
@@ -117,7 +127,7 @@ export default function Dropper()
             </div>
         </div>
         <div className="end-box d-flex justify-content-end align-items-end h-100 m-4">
-            <Notify appear={showToast} setAppear={setShowToast} variant={toastVariant}/>
+            <Notify appear={showToast} setAppear={setShowToast} variant={toastVariant} message={toastMessage}/>
         </div>
     </div>
     )
