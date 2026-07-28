@@ -15,7 +15,6 @@ export default function ProgressBar({ progress }: ProgressBarProps) {
             return Math.min(prev + 1, progress);
         });
     }, 16);
-    console.log(displayProgress)
     return () => clearInterval(intervalid);
     }, [progress]);
 
