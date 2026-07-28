@@ -4,6 +4,7 @@ import { CodecConversion } from "../utils/fileUtils.tsx";
 import { UrlConversion } from "../utils/UrlConversion.tsx";
 import { CODEC, CODECS } from "../utils/codes.tsx";
 import {Notify} from "../elements/toasts/toasts.tsx"
+import { callToast } from "../elements/toasts/toastcaller.tsx";
 import Nav from "../elements/nav/nav.jsx";
 import UploadBox from "../elements/uploadbox/uploadbox.tsx";
 import ProgressBar from "../elements/progressbar/progressbar.tsx";
@@ -22,37 +23,45 @@ export default function Dropper()
     const [click,setClick] = useState<number>(0);
     const [showToast , setShowToast] = useState<boolean>(false);
     const[toastVariant,setToastVariant] = useState<string>("")
-    const [toastMessage,setToastMessage] = useState<string>("");
-    // const debug_missing_file = true;
+    const [toastMessage,setToastMessage] = useState<string>("");  
+    const [isOpen , setIsOpen] = useState(false);
+    
+    const toast = (variant: string, message: string) => {
+    callToast(
+        setShowToast,
+        setToastVariant,
+        setToastMessage,
+        variant,
+        message
+    );
+    };
+    const formats = Object.keys(CODECS) as CODEC[];
 
     const StartConvert = (e: React.MouseEvent<HTMLButtonElement>) =>
     {
+        if(!file)
+        {
+            toast("Danger", "Error/your file upload has failed , no file uploaded");
+            return;
+        }
         setClick(prev => prev + 1);
     }
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => 
     {
         const file = e.target.files?.[0];
+        const oldtype = file?.name.split(".").pop() ?? "";
 
-        // if(debug_missing_file)
-        // {
-        //     file = undefined;
-        // }
-        
-        if (file) {
-            setFile(file);
-            setShowToast(true);
-            setToastVariant('Success');
-            setToastMessage('File upload/Your file has been successfully uploaded');
-        }
-        if(!file) 
+        if (!file || !formats.includes(oldtype))
         {
-            setShowToast(true);
-            setToastVariant('Danger');
-            setToastMessage('Error/your file upload has failed')
+            setFile(undefined);
+            toast("Danger", "Error/your file upload has failed , wrong file type");
+            return;
         }
-        console.log(toastVariant);
-    }
 
+        setFile(file);
+        toast("Success", "File upload/Your file has been successfully uploaded");
+    }
     // function handleUrlChange(e: React.MouseEvent<HTMLButtonElement>) {
     //     setUrlink(e.currentTarget.value);
     // }
@@ -60,6 +69,18 @@ export default function Dropper()
     useEffect(() => {
         const load = async () => 
         {   
+            if(!file)
+            {
+                return;
+            }
+            const oldtype = file?.name.split(".").pop() ?? "";
+
+            if (!formats.includes(oldtype))
+            {
+                setFile(undefined);
+                console.log(file)
+                return;
+            }
             await ffmpeg.current.load()
             if(file)
             {   
@@ -79,9 +100,7 @@ export default function Dropper()
     //     await UrlConversion(ffmpeg.current,urlink,"video.mp4");
     //     // ffmpeg -i "YOUR URL TO DOWNLOAD VIDEO FROM" -c:v libx264 -preset slow -crf 22 "saveas.mp4"
     // }
-    
-    const formats = Object.keys(CODECS) as CODEC[];
-    const [isOpen , setIsOpen] = useState(false);
+
 
     return (
     <div className="vh-100 main-container w-100 d-flex flex-column">
@@ -101,10 +120,10 @@ export default function Dropper()
                     </button>
                     {isOpen && (
                         <div className="select-menu">
-                            {formats.filter(option => option !== "url")
-                            .map(option =>
+                            {formats.filter((option) => option !== "url")
+                            .map((option, key) =>
                                 (
-                                    <div key={option} className="select-option" onClick={(e) => { setNewtype(option); setIsOpen(false); }}>
+                                    <div key={key} className="select-option" onClick={(e) => { setNewtype(option); setIsOpen(false); }}>
                                         {option.toUpperCase()}
                                     </div>
                                 )
@@ -112,12 +131,6 @@ export default function Dropper()
                         </div>
                     )}
                 </div>
-                        {/* 
-                        <input
-                            type="text"
-                            className="w-25 form-control mt-3"
-                            onChange={(e) => setNewtype(e.target.value)}
-                        /> */}
                 <ProgressBar progress={progress}/>
                 <div className="Btn d-flex justify-content-end align-items-center">
                     <button className="p-1 mt-3 click-btn" onClick={StartConvert}>
